@@ -6,7 +6,12 @@
   "dependencies": {
     "orison": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@contentful/rich-text-html-renderer": "^14.1.1",
+    "@contentful/rich-text-types": "^14.1.1",
+    "contentful": "^7.14.5",
+    "dotenv": "^8.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "orison build",
