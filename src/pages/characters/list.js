@@ -42,7 +42,7 @@ export default async (context, slug) => {
         <section>
           <h1>${character.fields.name}</h1>
           ${eventsByCharacter[character.sys.id].map(event => html`
-            <h5>${event.fields.title}</h5>
+            <h3>${event.fields.title}</h3>
             ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
             ${renderRichText(event.fields.description)}
             <br>

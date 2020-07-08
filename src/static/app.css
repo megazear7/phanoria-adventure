@@ -7,6 +7,7 @@ html {
   --secondary-color: #c89666;
   --tertiary-color: #c89666;
   --background-color: #fceed1;
+  --background-color-light: #fefaf1;
   --grey: #efefef;
   --medium-grey: #aaa;
   --dark-grey: #12343b;
@@ -18,7 +19,8 @@ html {
   --box-shadow: 0 8px 6px -6px rgba(0,0,0,0.5);
   font-size: 18px;
   line-height: 2rem;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.7);
+  background-color: var(--background-color-light);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -95,11 +97,6 @@ main p {
 
 section {
   padding: 1rem;
-  background: var(--app-section-even-color);
-}
-
-section:nth-of-type(even) {
-  background: var(--app-section-odd-color);
 }
 
 section > *, footer > *, header > *, nav > * {
@@ -199,4 +196,55 @@ a.item:hover, a.item:focus {
 
 .rich-text p {
   margin: 0 0 0.5rem 0;
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 22px;
+  }
+
+  section > *, footer > *, header > *, nav > * {
+    max-width: none;
+  }
+
+  .rich-text p {
+    margin: 0 0 1rem 0;
+    line-height: 3rem;
+  }
+
+  .date {
+    font-style: italic;
+    color: var(--medium-grey);
+    margin: 1rem auto 1rem auto;
+  }
+
+  h1 {
+    margin: 2rem 0 0 0;
+    font-size: 4rem;
+  }
+
+  h2 {
+    margin: 2rem 0 0 0;
+    font-size: 3.5rem;
+  }
+
+  h3 {
+    margin: 2rem 0 0 0;
+    font-size: 3rem;
+  }
+
+  h4 {
+    margin: 2rem 0 0 0;
+    font-size: 2.5rem;
+  }
+
+  h5 {
+    margin: 2rem 0 0 0;
+    font-size: 2.25rem;
+  }
+
+  h6 {
+    margin: 2rem 0 0 0;
+    font-size: 1.5rem;
+  }
 }
