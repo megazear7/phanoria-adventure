@@ -29,5 +29,9 @@ export function renderRichText(document) {
     }
   });
 
-  return html`${unsafeHTML(htmlString)}`;
+  return html`
+    <div class="rich-text">
+      ${unsafeHTML(htmlString)}
+    </div>
+  `;
 }

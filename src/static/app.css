@@ -3,18 +3,19 @@
 }
 
 html {
-  --primary-color: #fa5d0f;
-  --secondary-color: #ffce27;
-  --tertiary-color: #d13405;
-  --code-header-color: #a8a8a8;
-  --code-background-color: #f8f8f8;
-  --grey: #eee;
-  --dark-grey: #444;
+  --primary-color: #2d545e;
+  --secondary-color: #c89666;
+  --tertiary-color: #c89666;
+  --background-color: #fceed1;
+  --grey: #efefef;
+  --medium-grey: #aaa;
+  --dark-grey: #12343b;
   --app-section-even-color: #fff;
-  --app-section-odd-color: var(--grey);
+  --app-section-odd-color: #fff;
   --border-radius: 5px;
   --content-width: 800px;
   --text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  --box-shadow: 0 8px 6px -6px rgba(0,0,0,0.5);
   font-size: 18px;
   line-height: 2rem;
   color: rgba(0, 0, 0, 0.8);
@@ -32,16 +33,18 @@ h1 {
   font-size: 4rem;
   line-height: 1;
   font-weight: 500;
-  color: var(--tertiary-color);
+  color: var(--secondary-color);
   text-shadow: var(--text-shadow);
+  margin: 1rem 0 0 0.5rem;
 }
 
 h2 {
   font-size: 2.5rem;
   line-height: 1;
   font-weight: 400;
-  color: var(--primary-color);
+  color: var(--secondary-color);
   text-shadow: var(--text-shadow);
+  margin: 1rem 0 0 0.5rem;
 }
 
 h3 {
@@ -49,26 +52,27 @@ h3 {
   line-height: 1;
   font-weight: 300;
   letter-spacing: 2px;
-  color: var(--tertiary-color);
+  color: var(--secondary-color);
   text-shadow: var(--text-shadow);
+  margin: 1rem 0 0 0.5rem;
 }
 
 h4 {
-  /* Careful. This is meant to be used as code block headers */
-  color: var(--code-header-color);
-  margin-bottom: 0;
-  background-color: var(--code-background-color);
-  padding: 0.5em;
-  border-bottom: 1px solid var(--code-header-color);
+  font-size: 1.625rem;
+  line-height: 1;
   font-weight: 300;
+  color: var(--secondary-color);
+  text-shadow: var(--text-shadow);
+  margin: 1rem 0 0 0.5rem;
 }
 
 h5 {
   font-size: 1.5rem;
   line-height: 1;
   font-weight: 300;
-  color: var(--tertiary-color);
+  color: var(--secondary-color);
   text-shadow: var(--text-shadow);
+  margin: 1rem 0 0 0.5rem;
 }
 
 h6 {
@@ -78,6 +82,7 @@ h6 {
   letter-spacing: 2px;
   color: var(--dark-grey);
   text-shadow: var(--text-shadow);
+  margin: 1rem 0 0 0.5rem;
 }
 
 p {
@@ -103,30 +108,19 @@ section > *, footer > *, header > *, nav > * {
   margin-left: auto;
 }
 
-p code, ul code, li code {
-  padding: 3px;
-  color: #333;
-  background-color: var(--code-background-color);
-  border-radius: 5px;
-}
-
-pre {
-  margin-top: 0;
-}
-
 header {
   padding: 1rem;
   border-top: 3px solid var(--primary-color);
-  background-color: var(--secondary-color);
+  background-color: var(--background-color);
 }
 
 footer {
   padding: 1rem;
-  background: var(--secondary-color);
+  background: var(--tertiary-color);
 }
 
 nav {
-  background: var(--secondary-color);
+  background: var(--tertiary-color);
 }
 
 nav > div {
@@ -143,7 +137,7 @@ nav a {
   color: var(--tertiary-color);
 }
 
-nav a:hover {
+nav a:hover, nav a:visited {
   color: var(--primary-color);
   border-bottom: 3px dashed var(--primary-color);
 }
@@ -169,4 +163,40 @@ ul.breadcrumb li {
 ul.breadcrumb li+li:before {
   padding: 8px;
   content: "/\00a0";
+}
+
+a.item {
+  text-decoration: none;
+  transition: all 250ms;
+  border: 1px solid rgba(0,0,0,0);
+  color: var(--secondary-color);
+}
+
+a.item {
+  padding: 0.5rem;
+}
+
+a.item:hover, a.item:focus {
+  text-decoration: none;
+  box-shadow: var(--box-shadow);
+  background-color: var(--grey);
+  border: 1px solid var(--medium-grey);
+}
+
+.date {
+  font-style: italic;
+  color: var(--medium-grey);
+  margin: 0.25rem auto 0 auto;
+}
+
+.number-suffix {
+  vertical-align: super;
+  font-size: 0.75rem;
+  line-height: 0;
+  position: relative;
+  left: -4px;
+}
+
+.rich-text p {
+  margin: 0 0 0.5rem 0;
 }
