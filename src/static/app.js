@@ -9,7 +9,11 @@ if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
 
 function loadFragment(path, callback) {
   // Determine the fragment path
-  var fragmentPath = path + ".fragment";
+  var fragmentPath = path.includes('.html')
+  ? path.replace('.html', '.fragment.html')
+  : path === '/'
+    ? '/index.fragment.html'
+    : path + '/index.fragment.html';
 
   fetch(fragmentPath)
   .then(res => res.status === 404 ? fetch('/404.fragment.html') : res)
@@ -26,7 +30,7 @@ function replacePage(fragmentHtml, path) {
   document.querySelectorAll('nav a').forEach(link => {
     const hrefNoExt = link.getAttribute('href').replace('.html', '');
     const pathNoExt = path.replace('.html', '')
-    if ((hrefNoExt != '/' && pathNoExt.startsWith(hrefNoExt)) || (hrefNoExt === '/' && pathNoExt === '/')) {
+    if ((hrefNoExt != '/' && pathNoExt === hrefNoExt) || (hrefNoExt === '/' && pathNoExt === '/')) {
       link.classList.add('active');
     }
   });

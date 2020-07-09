@@ -20,7 +20,6 @@ export default async context => {
     ${nav(links, currentPath)}
     <section>
       ${events.items.map(event => html`
-        ${console.log(event.fields.involvement)}
         <h4>
           ${event.fields.title}${event.fields.involvement.length === 1 ? html`
             <small>(${event.fields.involvement[0].fields.name})</small>`

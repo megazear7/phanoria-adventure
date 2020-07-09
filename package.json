@@ -14,10 +14,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node orison.js build",
-    "serve": "node orison.js serve",
+    "build": "orison build",
+    "serve": "orison serve",
     "prod": "NODE_ENV=production orison serve",
-    "static": "node orison.js static"
+    "static": "orison static"
   },
   "author": "",
   "license": "ISC"
