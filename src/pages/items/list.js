@@ -15,26 +15,6 @@ function searchParams(slug) {
 
 export default async (context, slug) => {
   const characters = await client.getEntries(searchParams(slug));
-  const eventsByCharacter = {};
-
-  for (const character of characters.items) {
-    try {
-      const events = await client.getEntries({
-        'content_type': 'event',
-        'order': '-fields.year,-fields.month,-fields.day,-fields.ordering'
-      });
-      eventsByCharacter[character.sys.id] = [];
-      for (const event of events.items) {
-        if (event.fields.involvement) {
-          if (event.fields.involvement.map(inv => inv.sys.id).includes(character.sys.id)) {
-            eventsByCharacter[character.sys.id].push(event);
-          }
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   return characters.items.map(character => {
     const links = [
@@ -54,11 +34,12 @@ export default async (context, slug) => {
         </section>
         ${nav(links, currentPath)}
         <section>
-          ${eventsByCharacter[character.sys.id].map(event => html`
-            <h4>${event.fields.title}</h4>
-            ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
-            ${renderRichText(event.fields.description)}
-          `)}
+          ${character.fields.items ? html`
+            ${character.fields.items.map(item => html`
+              <h4>${item.fields.id} - ${item.fields.title}</h4>
+              ${renderRichText(item.fields.description)}
+            `)}
+          `: ''}
         </section>
       `
     }
