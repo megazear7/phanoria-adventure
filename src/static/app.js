@@ -9,11 +9,7 @@ if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
 
 function loadFragment(path, callback) {
   // Determine the fragment path
-  var fragmentPath = path.includes('.html')
-    ? path.replace('.html', '.fragment.html')
-    : path === '/'
-      ? '/index.fragment.html'
-      : path + '/index.fragment.html';
+  var fragmentPath = path + ".fragment";
 
   fetch(fragmentPath)
   .then(res => res.status === 404 ? fetch('/404.fragment.html') : res)

@@ -1,16 +1,9 @@
 import { html } from 'orison';
-import { client } from '../../contentful.js';
-import characterList from '../../partials/character-list.js';
-import nav from '../../partials/nav.js';
-
-/*
-This is intentionally placed at a 'hidden' url.
-*/
+import { client, renderRichText } from '../../../contentful.js';
+import nav from '../../../partials/nav.js';
 
 export default async context => {
-  const entries = await client.getEntries({
-    'content_type': 'character'
-  });
+  const npcs = await client.getEntries({ 'content_type': 'npc' });
 
   const links = [
     { path: `/3n93498jd39`, title: 'Characters' },
@@ -25,7 +18,10 @@ export default async context => {
   return html`
     ${nav(links, currentPath)}
     <section>
-      ${characterList(entries.items)}
+      ${npcs.items.map(npc => html`
+        <h4>${npc.fields.name}</h4>
+        ${renderRichText(npc.fields.description)}
+      `)}
     </section>
   `;
 };
