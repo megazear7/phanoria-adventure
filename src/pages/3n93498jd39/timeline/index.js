@@ -21,7 +21,7 @@ export default async context => {
     <section>
       ${events.items.map(event => html`
         <h4>
-          ${event.fields.title}${event.fields.involvement.length === 1 ? html`
+          ${event.fields.title}${event.fields.involvement && event.fields.involvement.length === 1 ? html`
             <small>(${event.fields.involvement[0].fields.name})</small>`
           : ''}
         </h4>
