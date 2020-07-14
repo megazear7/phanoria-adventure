@@ -21,6 +21,10 @@ export default async context => {
       ${npcs.items.map(npc => html`
         <h4>${npc.fields.name}</h4>
         ${renderRichText(npc.fields.description)}
+        ${npc.fields.dmNotes ? html`
+          <h6>DM Notes</h6>
+          ${renderRichText(npc.fields.dmNotes)}
+        ` : ''}
       `)}
     </section>
   `;

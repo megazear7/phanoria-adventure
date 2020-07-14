@@ -21,6 +21,10 @@ export default async context => {
       ${items.items.map(item => html`
         <h4>${item.fields.id} - ${item.fields.title}</h4>
         ${renderRichText(item.fields.description)}
+        ${item.fields.dmNotes ? html`
+          <h6>DM Notes</h6>
+          ${renderRichText(item.fields.dmNotes)}
+        ` : ''}
       `)}
     </section>
   `;

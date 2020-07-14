@@ -4,7 +4,10 @@ import nav from '../../../partials/nav.js';
 import datePartial from '../../../partials/date.js';
 
 export default async context => {
-  const events = await client.getEntries({ 'content_type': 'event' });
+  const events = await client.getEntries({
+    'content_type': 'event',
+    'order': '-fields.year,-fields.month,-fields.day,-fields.ordering'
+  });
 
   const links = [
     { path: `/3n93498jd39`, title: 'Characters' },
@@ -27,6 +30,10 @@ export default async context => {
         </h4>
         ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
         ${renderRichText(event.fields.description)}
+        ${event.fields.dmNotes ? html`
+          <h6>DM Notes</h6>
+          ${renderRichText(event.fields.dmNotes)}
+        ` : ''}
       `)}
     </section>
   `;

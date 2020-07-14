@@ -13,7 +13,7 @@ html,body {
 html {
   --primary-color: #2d545e;
   --secondary-color: #c89666;
-  --tertiary-color: #c89666;
+  --tertiary-color: #704b29;
   --background-color: #fceed1;
   --background-color-light: #fefaf1;
   --grey: #efefef;
@@ -91,8 +91,7 @@ h6 {
   line-height: 1;
   font-weight: 300;
   letter-spacing: 2px;
-  color: var(--dark-grey);
-  text-shadow: var(--text-shadow);
+  color: var(--tertiary-color);
   margin: 1rem 0 0 0.5rem;
 }
 
@@ -131,7 +130,7 @@ footer {
 }
 
 nav {
-  background: var(--tertiary-color);
+  background: var(--secondary-color);
 }
 
 nav > div {
@@ -146,7 +145,7 @@ nav a {
   text-align: center;
   text-decoration: none;
   color: var(--primary-color);
-  border-bottom: 3px solid var(--tertiary-color);
+  border-bottom: 3px solid var(--secondary-color);
 }
 
 nav a:hover {
