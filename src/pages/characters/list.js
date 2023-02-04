@@ -52,10 +52,10 @@ export default async (context, slug) => {
         <section class="title-section">
           <h1>${character.fields.name}</h1>
         </section>
-        ${nav(links, currentPath, false)}
         <section>
           ${eventsByCharacter[character.sys.id].map(event => eventPartial(event))}
         </section>
+        ${nav(links, currentPath, false)}
       `
     }
   });

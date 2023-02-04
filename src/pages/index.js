@@ -5,7 +5,7 @@ import nav from '../partials/nav';
 
 export default async context => {
   const contentfulPage = await client.getEntry(context.data.pageId);
-  const entries = await client.getEntries({
+  const characters = await client.getEntries({
     'content_type': 'character'
   })
 
@@ -18,9 +18,12 @@ export default async context => {
   ];
   
   return html`
-    ${nav(links, currentPath, true)}
+    ${nav(links, currentPath, false)}
     <section>
       ${renderRichText(contentfulPage.fields.body)}
+    </section>
+    <section>
+      ${characterList(characters.items)}
     </section>
   `;
 }

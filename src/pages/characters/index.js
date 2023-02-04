@@ -23,11 +23,11 @@ export default async context => {
 
   return html`
     <section class="title-section">
-      <h1>NPCs</h1>
+      <h1>Timeline</h1>
     </section>
-    ${nav(links, currentPath, false)}
     <section>
       ${npcs.items.map(event => eventPartial(event))}}
     </section>
+    ${nav(links, currentPath, false)}
   `;
 };

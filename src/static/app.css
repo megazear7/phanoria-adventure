@@ -36,7 +36,7 @@ html {
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 0 0 50px 0;
 }
 
 h1 {
@@ -45,7 +45,7 @@ h1 {
   font-weight: 500;
   color: var(--secondary-color);
   text-shadow: var(--text-shadow);
-  margin: 0;
+  margin: 3rem 0 0 0;
 }
 
 h2 {
@@ -54,7 +54,7 @@ h2 {
   font-weight: 400;
   color: var(--secondary-color);
   text-shadow: var(--text-shadow);
-  margin: 1rem 0 0 0.5rem;
+  margin: 0;
 }
 
 h3 {
@@ -131,6 +131,9 @@ footer {
 
 nav {
   background: var(--secondary-color);
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
 
 nav > div {
@@ -210,7 +213,7 @@ a.item:hover, a.item:focus {
 
 .title-section {
   text-align: center;
-  background-color: var(--background-color);
+  padding: 0;
 }
 
 .rich-text p {

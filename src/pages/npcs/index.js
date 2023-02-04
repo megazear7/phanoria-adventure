@@ -25,9 +25,9 @@ export default async context => {
     <section class="title-section">
       <h1>NPCs</h1>
     </section>
-    ${nav(links, currentPath, false)}
     <section>
       ${npcsPartial(npcs.items)}
     </section>
+    ${nav(links, currentPath, false)}
   `;
 };
