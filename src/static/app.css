@@ -221,6 +221,11 @@ a.item:hover, a.item:focus {
   margin: 0 0 0.5rem 0;
 }
 
+.map {
+  max-width: 300px;
+  margin: auto;
+}
+
 @media (max-width: 1000px) {
   html {
     font-size: 22px;

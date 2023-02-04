@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "orison build",
+    "build": "rm -rf docs && orison build",
     "serve": "orison serve",
     "prod": "NODE_ENV=production orison serve",
     "static": "orison static"

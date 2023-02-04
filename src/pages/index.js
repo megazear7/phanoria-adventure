@@ -26,5 +26,11 @@ export default async context => {
     <section>
       ${characterList(characters.items)}
     </section>
+    <section>
+      <h4>The Lands of JanCastle</h4>
+      <div>
+        <a href="/the-lands-of-jancastle.jpg"><img class="map" src="/the-lands-of-jancastle.jpg"></a>
+      </div>
+    </section>
   `;
 }
