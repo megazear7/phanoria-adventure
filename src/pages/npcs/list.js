@@ -1,7 +1,7 @@
 import { html } from 'orison';
-import { client, renderRichText } from '../../contentful.js';
-import datePartial from '../../partials/date.js';
+import { client } from '../../contentful.js';
 import nav from '../../partials/nav.js';
+import npcsPartial from '../../partials/npcs.js';
 
 function searchParams(slug) {
   var params = {
@@ -34,12 +34,7 @@ export default async (context, slug) => {
         </section>
         ${nav(links, currentPath, true)}
         <section>
-          ${character.fields.npcs ? html`
-            ${character.fields.npcs.map(npc => html`
-              <h4>${npc.fields.name}</h4>
-              ${renderRichText(npc.fields.description)}
-            `)}
-          `: ''}
+          ${npcsPartial(character.fields.npcs)}
         </section>
       `
     }
