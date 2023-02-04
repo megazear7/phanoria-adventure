@@ -1,6 +1,6 @@
 import { html } from 'orison';
-import { client, renderRichText } from '../../contentful.js';
-import datePartial from '../../partials/date.js';
+import { client } from '../../contentful.js';
+import eventPartial from '../../partials/event.js';
 import nav from '../../partials/nav.js';
 
 function searchParams(slug) {
@@ -52,13 +52,9 @@ export default async (context, slug) => {
         <section class="title-section">
           <h1>${character.fields.name}</h1>
         </section>
-        ${nav(links, currentPath, true)}
+        ${nav(links, currentPath, false)}
         <section>
-          ${eventsByCharacter[character.sys.id].map(event => html`
-            <h4>${event.fields.title}</h4>
-            ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
-            ${renderRichText(event.fields.description)}
-          `)}
+          ${eventsByCharacter[character.sys.id].map(event => eventPartial(event))}
         </section>
       `
     }

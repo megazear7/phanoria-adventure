@@ -32,7 +32,7 @@ export default async (context, slug) => {
         <section class="title-section">
           <h1>${character.fields.name}</h1>
         </section>
-        ${nav(links, currentPath, true)}
+        ${nav(links, currentPath, false)}
         <section>
           ${npcsPartial(character.fields.npcs)}
         </section>
