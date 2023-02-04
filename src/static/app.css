@@ -64,7 +64,7 @@ h3 {
   letter-spacing: 2px;
   color: var(--secondary-color);
   text-shadow: var(--text-shadow);
-  margin: 1rem 0 0 0.5rem;
+  margin: 1rem 0 0.5rem 0;
 }
 
 h4 {
@@ -92,7 +92,7 @@ h6 {
   font-weight: 300;
   letter-spacing: 2px;
   color: var(--tertiary-color);
-  margin: 1rem 0 0 0.5rem;
+  margin: 1rem 0 0.5rem 0;
 }
 
 p {

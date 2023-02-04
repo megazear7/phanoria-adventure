@@ -6,11 +6,11 @@ export default async context => {
   const npcs = await client.getEntries({ 'content_type': 'npc' });
 
   const links = [
-    { path: `/3n93498jd39`, title: 'Characters' },
-    { path: `/3n93498jd39/timeline`, title: 'Timeline' },
-    { path: `/3n93498jd39/npcs`, title: 'NPCs' },
-    { path: `/3n93498jd39/locations`, title: 'Locations' },
-    { path: `/3n93498jd39/items`, title: 'Items' },
+    { path: `/dm`, title: 'Characters' },
+    { path: `/dm/timeline`, title: 'Timeline' },
+    { path: `/dm/npcs`, title: 'NPCs' },
+    { path: `/dm/locations`, title: 'Locations' },
+    { path: `/dm/items`, title: 'Items' },
   ];
 
   const currentPath = `${context.path}`;

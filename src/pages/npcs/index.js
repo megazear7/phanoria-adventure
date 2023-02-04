@@ -5,7 +5,8 @@ import npcsPartial from '../../partials/npcs.js';
 
 function searchParams(slug) {
   var params = {
-    'content_type': 'npc'
+    'content_type': 'npc',
+    'fields.hide[ne]': true
   };
 
   return params;

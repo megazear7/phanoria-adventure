@@ -5,7 +5,8 @@ import locationsPartial from '../../partials/locations.js';
 
 function searchParams(slug) {
   var params = {
-    'content_type': 'location'
+    'content_type': 'location',
+    'fields.hide[ne]': true
   };
 
   return params;

@@ -5,7 +5,8 @@ import itemsPartial from '../../partials/items.js';
 
 function searchParams(slug) {
   var params = {
-    'content_type': 'item'
+    'content_type': 'item',
+    'fields.hide[ne]': true
   };
 
   return params;

@@ -5,7 +5,9 @@ import eventPartial from '../../partials/event.js';
 
 function searchParams(slug) {
   var params = {
-    'content_type': 'event'
+    'content_type': 'event',
+    'fields.hide[ne]': true,
+    'order': '-fields.year,-fields.month,-fields.day,-fields.ordering'
   };
 
   return params;
