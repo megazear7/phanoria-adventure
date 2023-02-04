@@ -38,7 +38,8 @@ export default async (context, slug) => {
 
   return characters.items.map(character => {
     const links = [
-      { path: `/characters/${character.sys.id}`, title: 'Timeline' },
+      { path: `/`, title: 'Characters' },
+      { path: `/timeline/${character.sys.id}`, title: 'Timeline' },
       { path: `/npcs/${character.sys.id}`, title: 'NPCs' },
       { path: `/locations/${character.sys.id}`, title: 'Locations' },
       { path: `/items/${character.sys.id}`, title: 'Items' },

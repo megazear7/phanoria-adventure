@@ -11,7 +11,8 @@ export default async context => {
 
   const currentPath = '/';
   const links = [
-    { path: `/characters`, title: 'Timeline' },
+    { path: `/`, title: 'Characters' },
+    { path: `/timeline`, title: 'Timeline' },
     { path: `/npcs`, title: 'NPCs' },
     { path: `/locations`, title: 'Locations' },
     { path: `/items`, title: 'Items' },
