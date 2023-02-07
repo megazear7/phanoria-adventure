@@ -2,6 +2,7 @@ import { html } from 'orison';
 import { client } from '../../contentful.js';
 import characterList from '../../partials/character-list.js';
 import nav from '../../partials/nav.js';
+import searchBox from '../../../partials/search-box.js';
 
 /*
 This is intentionally placed at a 'hidden' url.
@@ -24,6 +25,9 @@ export default async context => {
 
   return html`
     ${nav(links, currentPath)}
+    <section>
+      ${searchBox('Search Characters')}
+    </section>
     <section>
       ${characterList(entries.items)}
     </section>

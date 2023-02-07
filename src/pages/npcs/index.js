@@ -2,6 +2,7 @@ import { html } from 'orison';
 import { client } from '../../contentful.js';
 import nav from '../../partials/nav.js';
 import npcsPartial from '../../partials/npcs.js';
+import searchBox from '../../partials/search-box.js';
 
 function searchParams(slug) {
   var params = {
@@ -26,6 +27,9 @@ export default async context => {
   return html`
     <section class="title-section">
       <h1>NPCs</h1>
+    </section>
+    <section>
+      ${searchBox('Search NPCs')}
     </section>
     <section>
       ${npcsPartial(npcs.items)}

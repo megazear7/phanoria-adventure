@@ -1,3 +1,5 @@
+import './search-box.js';
+
 if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
   navigator.serviceWorker.register('/sw.js')
   .then(function(reg) {

@@ -2,6 +2,7 @@ import { html } from 'orison';
 import { client } from '../../contentful.js';
 import nav from '../../partials/nav.js';
 import eventPartial from '../../partials/event.js';
+import searchBox from '../../partials/search-box.js';
 
 function searchParams(slug) {
   var params = {
@@ -29,7 +30,10 @@ export default async context => {
       <h1>Timeline</h1>
     </section>
     <section>
-      ${npcs.items.map(event => eventPartial(event))}}
+      ${searchBox('Search Events')}
+    </section>
+    <section>
+      ${npcs.items.map(event => eventPartial(event))}
     </section>
     ${nav(links, currentPath, false)}
   `;

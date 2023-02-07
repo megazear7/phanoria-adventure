@@ -9,7 +9,7 @@ export default context => html`
     <meta charset="UTF-8" />
     <title>${context.root.data.title}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="/app.js"></script>
+    <script type="module" src="/app.js"></script>
     <link rel="stylesheet" type="text/css" href="/app.css">
     <meta name="description" content="${context.root.data.description}">
     <link rel="icon" href="/icons/favicon.ico">

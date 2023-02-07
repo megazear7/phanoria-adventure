@@ -2,6 +2,7 @@ import { html } from 'orison';
 import { client, renderRichText } from '../contentful.js';
 import characterList from '../partials/character-list.js';
 import nav from '../partials/nav';
+import searchBox from '../partials/search-box.js';
 
 export default async context => {
   const contentfulPage = await client.getEntry(context.data.pageId);
@@ -22,6 +23,9 @@ export default async context => {
     ${nav(links, currentPath, false)}
     <section>
       ${renderRichText(contentfulPage.fields.body)}
+    </section>
+    <section>
+      ${searchBox('Search Characters')}
     </section>
     <section>
       ${characterList(characters.items)}

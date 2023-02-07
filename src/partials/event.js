@@ -12,9 +12,11 @@ export default event => {
     ` : '';
 
     return html`
-        <h4>${event.fields.title}</h4>
-        ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
-        ${singleCharHtml}
-        ${renderRichText(event.fields.description)}
+        <div class="search-entry">
+            <h4>${event.fields.title}</h4>
+            ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
+            ${singleCharHtml}
+            ${renderRichText(event.fields.description)}
+        </div>
     `;
 };
