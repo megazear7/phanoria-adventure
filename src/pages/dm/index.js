@@ -10,7 +10,8 @@ This is intentionally placed at a 'hidden' url.
 
 export default async context => {
   const entries = await client.getEntries({
-    'content_type': 'character'
+    'content_type': 'character',
+    'order': '-sys.updatedAt'
   });
 
   const links = [

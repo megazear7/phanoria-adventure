@@ -7,7 +7,8 @@ import searchBox from '../partials/search-box.js';
 export default async context => {
   const contentfulPage = await client.getEntry(context.data.pageId);
   const characters = await client.getEntries({
-    'content_type': 'character'
+    'content_type': 'character',
+    'order': '-sys.updatedAt'
   })
 
   const currentPath = '/';

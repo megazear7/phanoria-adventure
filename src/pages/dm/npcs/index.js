@@ -3,7 +3,10 @@ import { client, renderRichText } from '../../../contentful.js';
 import nav from '../../../partials/nav.js';
 
 export default async context => {
-  const npcs = await client.getEntries({ 'content_type': 'npc' });
+  const npcs = await client.getEntries({
+    'content_type': 'npc',
+    'order': '-sys.updatedAt'
+  });
 
   const links = [
     { path: `/dm`, title: 'Characters' },

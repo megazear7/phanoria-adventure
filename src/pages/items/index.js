@@ -7,7 +7,8 @@ import searchBox from '../../partials/search-box.js';
 function searchParams(slug) {
   var params = {
     'content_type': 'item',
-    'fields.hide[ne]': true
+    'fields.hide[ne]': true,
+    'order': '-sys.updatedAt'
   };
 
   return params;
