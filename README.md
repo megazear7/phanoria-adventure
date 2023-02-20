@@ -21,3 +21,5 @@ npm run build
 ```
 npm run serve
 ```
+
+Open [localhost:8888](http://localhost:8888)
