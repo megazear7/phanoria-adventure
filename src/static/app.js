@@ -39,6 +39,7 @@ function replacePage(fragmentHtml, path) {
   document.querySelectorAll('pre code').forEach((block) => {
     hljs.highlightBlock(block);
   });
+  fullscreenImgInit();
 }
 
 window.addEventListener('popstate', event => {
@@ -48,6 +49,7 @@ window.addEventListener('popstate', event => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  fullscreenImgInit();
   document.body.addEventListener('click', event => {
     var tag = event.target;
 
@@ -69,3 +71,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+function fullscreenImgInit() {
+  document.querySelectorAll('.search-entry .richtext-img')
+  .forEach(img => img.addEventListener('click', () => {
+    console.log(img.src);
+    const divNode = document.createElement('div');
+    divNode.classList = 'fullscreen-img';
+    const imgNode = document.createElement('img');
+    divNode.appendChild(imgNode);
+    imgNode.src = img.src;
+    imgNode.addEventListener('click', () => document.querySelectorAll('.fullscreen-img').forEach(nodeToRemove => {
+      nodeToRemove.remove();
+    }));
+    document.body.appendChild(divNode);
+  }));
+}
