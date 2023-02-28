@@ -25,7 +25,7 @@ export default async context => {
         <h4>${location.fields.title}</h4>
         ${renderRichText(location.fields.description)}
         ${location.fields.dmNotes ? html`
-          <h6>DM Notes</h6>
+          <h5>DM Notes</h5>
           ${renderRichText(location.fields.dmNotes)}
         ` : ''}
       `)}

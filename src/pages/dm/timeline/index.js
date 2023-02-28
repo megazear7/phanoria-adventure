@@ -31,7 +31,7 @@ export default async context => {
         ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
         ${renderRichText(event.fields.description)}
         ${event.fields.dmNotes ? html`
-          <h4>DM Notes</h4>
+          <h5>DM Notes</h5>
           ${renderRichText(event.fields.dmNotes)}
         ` : ''}
       `)}
