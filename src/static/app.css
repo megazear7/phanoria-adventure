@@ -11,10 +11,10 @@ html,body {
 }
 
 html {
-  --primary-color: #2d545e;
-  --secondary-color: #c89666;
-  --tertiary-color: #704b29;
-  --background-color: #fceed1;
+  --primary-color: #fcdf99;
+  --secondary-color: #22646c;
+  --tertiary-color: #586763;
+  --background-color: #ffeac5;
   --background-color-light: #fefaf1;
   --grey: #efefef;
   --medium-grey: #aaa;
