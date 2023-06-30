@@ -295,7 +295,7 @@ dnd-search-box {
     max-width: none;
   }
 
-  .rich-text p, .rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text h5, .rich-text h6 {
+  main > .rich-text p, main > .rich-text h1, main > .rich-text h2, main > .rich-text h3, main > .rich-text h4, main > .rich-text h5, main > .rich-text h6 {
     max-width: none;
     padding: 0 1rem;
   }
