@@ -8,6 +8,7 @@ class SearchBox extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
               .search-box input {
+                box-sizing: border-box;
                 width: 100%;
                 padding: 10px;
                 font-size: 1rem;
@@ -15,10 +16,13 @@ class SearchBox extends HTMLElement {
                 background: none;
                 text-align: center;
                 color: var(--primary-color);
+                border-bottom: 1px solid var(--primary-color);
+                transition: all 300ms;
               }
               
               .search-box input:focus {
                 outline: none;
+                border-bottom: 1px solid var(--secondary-color);
               }
             </style>
             <div class="search-box">

@@ -6,6 +6,7 @@ import searchBox from '../partials/search-box.js';
 
 export default async context => {
   const contentfulPage = await client.getEntry(context.data.pageId);
+  const secondaryPage = await client.getEntry(context.data.secondaryPageId);
   const characters = await client.getEntries({
     'content_type': 'character',
     'order': '-sys.updatedAt'
@@ -22,20 +23,11 @@ export default async context => {
   
   return html`
     ${nav(links, currentPath, false)}
-    <section>
-      ${renderRichText(contentfulPage.fields.body)}
-    </section>
+    ${renderRichText(contentfulPage.fields.body)}
     <section>
       ${searchBox('Search Characters')}
-    </section>
-    <section>
       ${characterList(characters.items)}
     </section>
-    <section>
-      <h4>The Lands of JanCastle</h4>
-      <div>
-        <a href="/the-lands-of-jancastle.jpg"><img class="map" src="/the-lands-of-jancastle.jpg"></a>
-      </div>
-    </section>
+    ${renderRichText(secondaryPage.fields.body)}
   `;
 }

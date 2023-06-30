@@ -25,9 +25,37 @@ export function renderRichText(document) {
       },
       [BLOCKS.EMBEDDED_ASSET]: node => {
         return `<img class="richtext-img" src="${node.data.target.fields.file.url}"/>`;
+      },
+      [BLOCKS.EMBEDDED_ENTRY]: node => {
+        console.log(JSON.stringify(node.data.target, null, 4));
+        if (node.data.target.fields && node.data.target.fields.view) {
+          if (['columns'].includes(node.data.target.fields.view)) {
+            return `
+              <div class="img-columns">
+                ${node.data.target.fields.images.map(image => `
+                  ${ image.fields.description ? `
+                    <a href="${image.fields.description}" target="_blank">
+                      <img class="richtext-img" src="${image.fields.file.url}"/>
+                    </a>
+                  `: `
+                    <img class="richtext-img" src="${image.fields.file.url}"/>
+                  `}
+                `)}
+              </div>
+            `;
+          } else if (node.data.target.fields.images.length > 0) {
+            return `<img class="richtext-img img-${node.data.target.fields.view}" src="${node.data.target.fields.images[0].fields.file.url}"/>`;
+          } else {
+            return ``;
+          }
+        } else {
+          return ``;
+        }
       }
     }
   });
+
+  // imageEmbed
 
   return html`
     <div class="rich-text">

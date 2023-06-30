@@ -1,7 +1,7 @@
 import { html } from 'orison';
 
-export default () => html`
+export default (title) => html`
   <header>
-    <h2>The Phanorian Campaign</h2>
+    <h2>${title}</h2>
   </header>
 `;
