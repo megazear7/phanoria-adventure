@@ -37,7 +37,9 @@ export default context => html`
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@username">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="gta">
+    <meta property="og:title" content="${context.root.data.shortTitle}">
+    <meta property="og:site_name" content="${context.root.data.shortTitle}">
+    <meta property="og:description" content="${context.root.data.description}">
     <meta property="og:image" content="/icons/icon-512x512.png" />
   </head>
   <body>

@@ -27,7 +27,6 @@ export function renderRichText(document) {
         return `<img class="richtext-img" src="${node.data.target.fields.file.url}"/>`;
       },
       [BLOCKS.EMBEDDED_ENTRY]: node => {
-        console.log(JSON.stringify(node.data.target, null, 4));
         if (node.data.target.fields && node.data.target.fields.view) {
           if (['columns'].includes(node.data.target.fields.view)) {
             return `

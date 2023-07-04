@@ -1,7 +1,7 @@
 {
-  "name": "Phanoria",
-  "short_name": "Phanoria",
-  "description": "Phanoria adventure log",
+  "name": "JanCastle Adventures",
+  "short_name": "JanCastle",
+  "description": "Contained herein is a record of all the deeds (great, terrible, and embarrassing) that have occurred in the lands of JanCastle",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#fa5d0f",
