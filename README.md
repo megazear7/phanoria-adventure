@@ -6,7 +6,15 @@
 
 ## Install
 
+Create a `.env` file in the root of the project:
+
 ```
+CONTENTFUL_API_TOKEN=
+SPACE_ID=
+```
+
+```
+nvm use 16
 npm install
 ```
 
