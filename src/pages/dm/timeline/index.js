@@ -2,12 +2,13 @@ import { html } from 'orison';
 import { client, renderRichText } from '../../../contentful.js';
 import nav from '../../../partials/nav.js';
 import datePartial from '../../../partials/date.js';
+import { orderEvents } from '../../../utils/event.js';
 
 export default async context => {
-  const events = await client.getEntries({
+  const events = orderEvents(await client.getEntries({
     'content_type': 'event',
     'order': '-fields.year,-fields.month,-fields.day,-fields.ordering'
-  });
+  }));
 
   const links = [
     { path: `/dm`, title: 'Characters' },
@@ -26,7 +27,7 @@ export default async context => {
         <h4>
           ${event.fields.title}${event.fields.involvement && event.fields.involvement.length === 1 ? html`
             <small>(${event.fields.involvement[0].fields.name})</small>`
-          : ''}
+      : ''}
         </h4>
         ${datePartial(event.fields.year, event.fields.month, event.fields.day)}
         ${renderRichText(event.fields.description)}
