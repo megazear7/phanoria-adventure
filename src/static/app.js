@@ -50,6 +50,30 @@ window.addEventListener('popstate', event => {
 
 document.addEventListener("DOMContentLoaded", () => {
   fullscreenImgInit();
+  document.body.querySelectorAll('.open-song').forEach(button => {
+    button.addEventListener('click', () => {
+      const songUrl = button.getAttribute('song-url');
+      const iframe = document.body.querySelector('.song-backdrop iframe');
+      iframe.src = songUrl;
+      document.body.querySelector('.song-backdrop').classList.add('opening');
+      setTimeout(() => {
+        document.body.querySelector('.song-backdrop').classList.add('visible');
+        document.body.querySelector('.song-backdrop').classList.remove('opening');
+      }, 350);
+    });
+  });
+
+  document.body.querySelector('.song-backdrop').addEventListener('click', () => {
+    document.body.querySelector('.song-backdrop').classList.add('closing');
+    
+    const iframe = document.body.querySelector('.song-backdrop iframe');
+    setTimeout(() => {
+      document.body.querySelector('.song-backdrop').classList.remove('visible');
+      document.body.querySelector('.song-backdrop').classList.remove('closing');
+      iframe.src = '';
+    }, 350);
+  });
+
   document.body.addEventListener('click', event => {
     var tag = event.target;
 

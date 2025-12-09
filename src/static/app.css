@@ -305,6 +305,95 @@ dnd-search-box {
   border-radius: var(--border-radius);
 }
 
+button.open-song {
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+}
+
+button.open-song svg {
+  color: var(--grey);
+  height: 30px;
+  width: 30px;
+  position: relative;
+  top: 6px;
+  transition: color 350ms ease;
+}
+
+button.open-song:hover svg {
+  color: var(--secondary-color);
+}
+
+.song-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+.song-content {
+  background: var(--background-color-light);
+  box-shadow: var(--box-shadow);
+  max-height: 80vh;
+  overflow-y: scroll;
+  margin: 100px auto;
+  position: relative;
+  opacity: 0;
+  transform: translateY(-20vh);
+}
+
+.song-backdrop.visible,
+.song-backdrop.opening {
+  display: flex;
+}
+
+.song-backdrop.visible .song-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.song-backdrop.opening .song-content {
+  animation: slideDown 350ms forwards;
+}
+
+.song-backdrop.closing .song-content {
+  animation: slideDown 350ms reverse;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.song-backdrop.opening {
+  animation: fadeInBackdrop 350ms forwards;
+}
+
+.song-backdrop.closing {
+  animation: fadeInBackdrop 350ms reverse;
+}
+
+@keyframes fadeInBackdrop {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
 @media (max-width: 1000px) {
   html {
     font-size: 18px;
