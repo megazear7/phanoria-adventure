@@ -215,7 +215,7 @@ a.item:hover, a.item:focus {
 }
 
 .rich-text h3 {
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .img-two-column:first-of-type {
@@ -279,22 +279,28 @@ a.item:hover, a.item:focus {
   columns: 239px 3;
 }
 
-.character-from-list:first-of-type h4 {
+.character-from-list:first-of-type {
   margin-top: 0;
 }
 
 .character-from-list {
   text-align: center;
   break-inside: avoid;
-  background-color: var(--app-section-even-color);
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
+  background-color: var(--dark-grey);
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
+}
+
+.character-from-list h4 {
+  margin-top: 0;
 }
 
 .img-fullscreen {
   width: 100vw;
   max-width: 100vw;
+  border-radius: 0;
+  margin: 1rem 0;
 }
 
 dnd-search-box {
@@ -364,6 +370,16 @@ button.open-song:hover svg {
 
 .song-backdrop.closing .song-content {
   animation: slideDown 350ms reverse;
+}
+
+
+a:hover .richtext-img {
+  box-shadow: var(--box-shadow);
+  transition: all 350ms ease;
+}
+
+a:hover .richtext-img {
+  box-shadow: var(--box-shadow-active);
 }
 
 @keyframes slideDown {

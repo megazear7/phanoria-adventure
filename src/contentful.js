@@ -39,7 +39,7 @@ export function renderRichText(document) {
                   `: `
                     <img class="richtext-img" src="${image.fields.file.url}"/>
                   `}
-                `)}
+                `).join('')}
               </div>
             `;
           } else if (node.data.target.fields.images.length > 0) {
