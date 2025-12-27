@@ -311,13 +311,13 @@ dnd-search-box {
   border-radius: var(--border-radius);
 }
 
-button.open-song {
+.sound-icon {
   all: unset;
   display: inline-block;
   cursor: pointer;
 }
 
-button.open-song svg {
+.sound-icon svg {
   color: var(--grey);
   height: 30px;
   width: 30px;
@@ -326,7 +326,59 @@ button.open-song svg {
   transition: color 350ms ease;
 }
 
-button.open-song:hover svg {
+.sound-icon:hover svg {
+  color: var(--secondary-color);
+}
+
+.card {
+  background-color: var(--app-section-odd-color);
+  border-radius: var(--border-radius);
+  margin: 2rem auto 2rem auto;
+  position: relative;
+  box-shadow: var(--box-shadow);
+  transition: all 350ms ease;
+}
+
+.card:hover {
+  box-shadow: var(--box-shadow-active);
+}
+
+.card .card-content {
+  padding: 1.5rem;
+}
+
+.card .card-hero {
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.card .sound-icon {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.card .sound-icon svg {
+  color: var(--medium-grey);
+}
+
+.card h3 {
+  display: block;
+  width: 100%;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  margin: 0;
+}
+
+.card h3 a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 350ms ease;
+}
+
+.card h3 a:hover {
   color: var(--secondary-color);
 }
 
