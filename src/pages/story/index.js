@@ -30,12 +30,12 @@ export default async context => {
         <div class="card">
           <div class="card-content">
             <h3>
-              <a href="">${campaign.fields.title}</a>
+              <a href="/campaign/${campaign.sys.id}">${campaign.fields.title}</a>
             </h3>
           </div>
           ${campaign.fields.albumUrl ? html`<a class="sound-icon" href="${campaign.fields.albumUrl}">${soundIcon}</a>` : ''}
           ${ campaign.fields.heroImage ? html`
-            <a href="">
+            <a href="/campaign/${campaign.sys.id}">
               <img class="card-hero" src="${campaign.fields.heroImage.fields.file.url}" alt="${campaign.fields.heroImage.fields.title}" />
             </a>
           `: ''}
@@ -50,12 +50,12 @@ export default async context => {
         <div class="card">
           <div class="card-content">
             <h3>
-              <a href="">${adventure.fields.title}</a>
+              <a href="/adventure/${adventure.sys.id}">${adventure.fields.title}</a>
             </h3>
           </div>
           ${adventure.fields.albumUrl ? html`<a class="sound-icon" href="${adventure.fields.albumUrl}">${soundIcon}</a>` : ''}
           ${ adventure.fields.heroImage ? html`
-            <a href="">
+            <a href="/adventure/${adventure.sys.id}">
               <img class="card-hero" src="${adventure.fields.heroImage.fields.file.url}" alt="${adventure.fields.heroImage.fields.title}" />
             </a>
           `: ''}

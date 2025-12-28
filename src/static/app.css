@@ -21,6 +21,7 @@ html {
   --dark-grey: #3a3f47; /* Darker grey */
   --app-section-even-color: #232528;
   --app-section-odd-color: #2f3037;
+  --app-section-odd-color-rgb: 47, 48, 55;
   --border-radius: 10px;
   --content-width: 750px;
   --box-shadow: 7px 7px 20px 0px rgba(0, 0, 0, 0.4);
@@ -432,6 +433,37 @@ a:hover .richtext-img {
 
 a:hover .richtext-img {
   box-shadow: var(--box-shadow-active);
+}
+
+.campaign-hero {
+  text-align: center;
+  margin: 2rem 0 1rem 0;
+  position: relative;
+}
+
+.campaign-hero h2 {
+  max-width: none;
+  margin: 0;
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.campaign-hero h2 span {
+  display: inline-block;
+  padding: 2rem 1rem 1rem 1rem;
+  background-color: rgba(var(--app-section-odd-color-rgb), calc(0.8));
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.campaign-hero img {
+  border-radius: 0;
+}
+
+.shift-section {
+  background-color: transparent;
+  position: relative;
+  top: -15rem;
 }
 
 @keyframes slideDown {
