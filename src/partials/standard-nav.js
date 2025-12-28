@@ -1,7 +1,7 @@
 import nav from "./nav.js";
 
 const links = [
-{ path: `/`, title: 'Characters' },
+{ path: `/`, title: 'Home' },
 { path: `/timeline`, title: 'Timeline' },
 { path: `/story`, title: 'Story' },
 { path: `/npcs`, title: 'NPCs' },
