@@ -18,7 +18,13 @@ function loadFragment(path, callback) {
     : path + '/index.fragment.html';
 
   fetch(fragmentPath)
-  .then(res => res.status === 404 ? fetch('/404.fragment.html') : res)
+  .then(res => {
+    if (res.status === 404) {
+      window.location.href = path;
+      throw new Error('Page not found, trying full load.');
+    }
+    return res;
+  })
   .then(res => res.text())
   .then(fragmentHtml => {
     replacePage(fragmentHtml, path);
