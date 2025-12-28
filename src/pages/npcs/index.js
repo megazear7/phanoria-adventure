@@ -8,7 +8,8 @@ function searchParams(slug) {
   var params = {
     'content_type': 'npc',
     'fields.hide[ne]': true,
-    'order': '-sys.updatedAt'
+    'order': '-sys.updatedAt',
+    'limit': 1000
   };
 
   return params;
