@@ -107,6 +107,10 @@ a.disabled {
   color: var(--grey);
 }
 
+a.active {
+  color: var(--secondary-color);
+}
+
 a:not(.disabled):hover {
   color: var(--secondary-color);
 }
