@@ -1,7 +1,6 @@
 import { html } from 'orison';
 import { client } from '../../contentful.js';
-import eventPartial from '../../partials/event.js';
-import nav from '../../partials/nav.js';
+import standardNav from '../../partials/standard-nav.js';
 
 export default async (context, slug) => {
   const campaigns = await client.getEntries({
@@ -11,18 +10,11 @@ export default async (context, slug) => {
 
   return campaigns.items.map(campaign => {
     const currentPath = `/campaign/${campaign.sys.id}`;
-    const links = [
-      { path: `/`, title: 'Characters' },
-      { path: `/story`, title: 'Story' },
-      { path: `/npcs`, title: 'NPCs' },
-      { path: `/locations`, title: 'Locations' },
-      { path: `/items`, title: 'Items' },
-    ];
 
     return {
       name: campaign.sys.id,
       html: html`
-        <section class="campaign-hero">
+        <section class="page-hero">
           <h2><span>${campaign.fields.title}</span></h2>
           <img class="card-hero" src="${campaign.fields.heroImage.fields.file.url}" alt="${campaign.fields.heroImage.fields.title}" />
         </section>
@@ -43,7 +35,7 @@ export default async (context, slug) => {
             </div>
           `)}
         </section>
-        ${nav(links, currentPath, false)}
+        ${standardNav(currentPath)}
       `
     }
   });

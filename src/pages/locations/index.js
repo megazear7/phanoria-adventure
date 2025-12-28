@@ -1,6 +1,6 @@
 import { html } from 'orison';
 import { client } from '../../contentful.js';
-import nav from '../../partials/nav.js';
+import standardNav from '../../partials/standard-nav.js';
 import locationsPartial from '../../partials/locations.js';
 import searchBox from '../../partials/search-box.js';
 
@@ -17,13 +17,6 @@ function searchParams(slug) {
 export default async context => {
   const locations = await client.getEntries(searchParams());
   const currentPath = '/locations';
-  const links = [
-    { path: `/`, title: 'Characters' },
-    { path: `/timeline`, title: 'Timeline' },
-    { path: `/npcs`, title: 'NPCs' },
-    { path: `/locations`, title: 'Locations' },
-    { path: `/items`, title: 'Items' },
-  ];
 
   return html`
     <section class="title-section">
@@ -35,6 +28,6 @@ export default async context => {
     <section>
       ${locationsPartial(locations.items)}
     </section>
-    ${nav(links, currentPath, false)}
+    ${standardNav(currentPath)}
   `;
 };

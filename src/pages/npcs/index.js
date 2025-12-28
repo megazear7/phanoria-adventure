@@ -1,6 +1,6 @@
 import { html } from 'orison';
 import { client } from '../../contentful.js';
-import nav from '../../partials/nav.js';
+import standardNav from '../../partials/standard-nav.js';
 import npcsPartial from '../../partials/npcs.js';
 import searchBox from '../../partials/search-box.js';
 
@@ -35,6 +35,6 @@ export default async context => {
     <section>
       ${npcsPartial(npcs.items)}
     </section>
-    ${nav(links, currentPath, false)}
+    ${standardNav(currentPath)}
   `;
 };

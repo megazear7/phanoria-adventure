@@ -43,7 +43,6 @@ export default context => html`
     <meta property="og:image" content="/icons/icon-512x512.png" />
   </head>
   <body>
-    ${header(context.root.data.title)}
     <main>
       ${context.page.html}
     </main>

@@ -6,8 +6,8 @@ export default (year, month, day) => {
       <div class="date">
         ${monthFormat(month)}
         ${day}
-        <span class="number-suffix">${suffix(day)}</span>,
-        year ${year} J.C.
+        <span class="number-suffix">${suffix(day)}</span>
+        ${year} J.C.
       </div>
     `: ''}
   `

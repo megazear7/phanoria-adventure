@@ -1,6 +1,6 @@
 import { html } from 'orison';
 import { client } from '../../contentful.js';
-import nav from '../../partials/nav.js';
+import standardNav from '../../partials/standard-nav.js';
 import { soundIcon } from '../../partials/icon.sound.js';
 
 export default async context => {
@@ -13,13 +13,6 @@ export default async context => {
     'order': '-fields.order'
   });
   const currentPath = '/story';
-  const links = [
-    { path: `/`, title: 'Characters' },
-    { path: `/story`, title: 'Story' },
-    { path: `/npcs`, title: 'NPCs' },
-    { path: `/locations`, title: 'Locations' },
-    { path: `/items`, title: 'Items' },
-  ];
 
   return html`
     <section class="title-section">
@@ -62,6 +55,6 @@ export default async context => {
         </div>
       `)}
     </section>
-    ${nav(links, currentPath, false)}
+    ${standardNav(currentPath)}
   `;
 };

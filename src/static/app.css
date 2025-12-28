@@ -38,7 +38,7 @@ html {
 
 body {
   margin: 0;
-  padding: 0 0 50px 0;
+  padding: 0 0 10rem 0;
 }
 
 h1 {
@@ -54,7 +54,7 @@ h2 {
   line-height: 1;
   font-weight: 400;
   color: var(--primary-color);
-  margin: 0;
+  margin: 2rem 0 0 0;
 }
 
 h3 {
@@ -94,6 +94,21 @@ h6 {
 
 p {
   font-size: 1rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a.disabled {
+  pointer-events: none;
+  color: var(--grey);
+}
+
+a:not(.disabled):hover {
+  color: var(--secondary-color);
 }
 
 small {
@@ -206,13 +221,15 @@ a.item:hover, a.item:focus {
 }
 
 .title-section {
+  margin-top: 2rem;
   text-align: center;
   padding: 0;
 }
 
 .rich-text p, .rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text h5, .rich-text h6 {
   max-width: var(--content-width);
-  margin: 0.5rem auto 0.5rem auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .rich-text h3 {
@@ -254,6 +271,10 @@ a.item:hover, a.item:focus {
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
   transition: all 350ms ease;
+}
+
+.search-entry h4 {
+  margin-top: 0;
 }
 
 .search-entry:hover {
@@ -435,13 +456,13 @@ a:hover .richtext-img {
   box-shadow: var(--box-shadow-active);
 }
 
-.campaign-hero {
+.page-hero {
   text-align: center;
-  margin: 2rem 0 1rem 0;
+  margin: 0rem 0 1rem 0;
   position: relative;
 }
 
-.campaign-hero h2 {
+.page-hero h2 {
   max-width: none;
   margin: 0;
   width: 100%;
@@ -449,14 +470,14 @@ a:hover .richtext-img {
   top: 0;
 }
 
-.campaign-hero h2 span {
+.page-hero h2 span {
   display: inline-block;
   padding: 2rem 1rem 1rem 1rem;
   background-color: rgba(var(--app-section-odd-color-rgb), calc(0.8));
   border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
-.campaign-hero img {
+.page-hero img {
   border-radius: 0;
 }
 
@@ -464,6 +485,18 @@ a:hover .richtext-img {
   background-color: transparent;
   position: relative;
   top: -15rem;
+}
+
+.timeline-page-title h6 {
+  color: var(--grey);
+}
+
+.timeline-page-title .date {
+  display: inline-block;
+}
+
+.pagination-links {
+  text-align: center;
 }
 
 @keyframes slideDown {
