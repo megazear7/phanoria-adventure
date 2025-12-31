@@ -7,7 +7,7 @@ import searchBox from '../../partials/search-box.js';
 export default async (context, slug) => {
   const adventures = await client.getEntries({
     'content_type': 'adventure',
-    'order': '-fields.order'
+    'order': 'fields.year,fields.month,fields.day,fields.ordering',
   });
 
   return adventures.items.map(adventure => {
