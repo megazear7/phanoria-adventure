@@ -15,11 +15,11 @@ export async function makeEventPages() {
   const numPages = Math.ceil(total / limit);
   const pages = [];
   for (let i = 0; i < numPages; i++) {
-    const pageEvents = orderEvents(await client.getEntries({
+    const pageEvents = orderEvents((await client.getEntries({
       ...basicRequest,
       limit: limit,
       skip: i * limit,
-    }));
+    })).items);
     pages.push({
       page: i + 1,
       events: pageEvents,

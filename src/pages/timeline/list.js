@@ -13,8 +13,8 @@ export default async (context, slug) => {
     const events = page.events;
     const currentPath = `${context.path}/page-${page.page}`;
     const name = `page-${page.page}`;
-    const firstEvent = events.items[events.items.length - 1];
-    const lastEvent = events.items[0];
+    const firstEvent = events[events.length - 1];
+    const lastEvent = events[0];
     const earliestDate = datePartial(firstEvent.fields.year, firstEvent.fields.month, firstEvent.fields.day);
     const latestDate = datePartial(lastEvent.fields.year, lastEvent.fields.month, lastEvent.fields.day);
     return {
@@ -31,7 +31,7 @@ export default async (context, slug) => {
           ${searchBox('Search Events')}
         </section>
         <section>
-          ${events.items.map(event => eventPartial(event))}
+          ${events.map(event => eventPartial(event))}
         </section>
         ${standardNav(currentPath)}
       `

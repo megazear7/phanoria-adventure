@@ -1,5 +1,5 @@
 export function orderEvents(events) {
-    events.items.sort((aItem, bItem) => {
+    events.sort((aItem, bItem) => {
         const a = aItem.fields;
         const b = bItem.fields;
         const months = [

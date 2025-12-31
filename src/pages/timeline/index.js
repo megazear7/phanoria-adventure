@@ -20,7 +20,7 @@ function searchParams(slug) {
 
 export default async context => {
   const pages = await makeEventPages();
-  const events = orderEvents(await client.getEntries(searchParams()));
+  const events = orderEvents((await client.getEntries(searchParams())).items);
   const currentPath = '/characters';
 
   return html`
@@ -34,7 +34,7 @@ export default async context => {
       ${searchBox('Search Events')}
     </section>
     <section>
-      ${events.items.map(event => eventPartial(event))}
+      ${events.map(event => eventPartial(event))}
     </section>
     ${standardNav(currentPath)}
   `;

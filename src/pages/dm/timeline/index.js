@@ -5,10 +5,10 @@ import datePartial from '../../../partials/date.js';
 import { orderEvents } from '../../../utils/event.js';
 
 export default async context => {
-  const events = orderEvents(await client.getEntries({
+  const events = orderEvents((await client.getEntries({
     'content_type': 'event',
     'order': '-fields.year,-fields.month,-fields.day,-fields.ordering'
-  }));
+  })).items);
 
   const links = [
     { path: `/dm`, title: 'Characters' },
@@ -23,7 +23,7 @@ export default async context => {
   return html`
     ${nav(links, currentPath)}
     <section>
-      ${events.items.map(event => html`
+      ${events.map(event => html`
         <h4>
           ${event.fields.title}${event.fields.involvement && event.fields.involvement.length === 1 ? html`
             <small>(${event.fields.involvement[0].fields.name})</small>`

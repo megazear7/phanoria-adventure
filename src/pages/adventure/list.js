@@ -3,16 +3,17 @@ import { client } from '../../contentful.js';
 import eventPartial from '../../partials/event.js';
 import standardNav from '../../partials/standard-nav.js';
 import searchBox from '../../partials/search-box.js';
+import { orderEvents } from '../../utils/event.js';
 
 export default async (context, slug) => {
   const adventures = await client.getEntries({
     'content_type': 'adventure',
-    'order': 'fields.year,fields.month,fields.day,fields.ordering',
+    'order': 'fields.order',
   });
 
   return adventures.items.map(adventure => {
     const currentPath = `/adventure/${adventure.sys.id}`;
-
+    const events = orderEvents(adventure.fields.events || []);
     return {
       name: adventure.sys.id,
       html: html`
@@ -24,7 +25,7 @@ export default async (context, slug) => {
           ${searchBox('Search Events')}
         </section>
         <section class="shift-section">
-          ${adventure.fields.events && adventure.fields.events.map(event => eventPartial(event))}
+          ${events.map(event => eventPartial(event))}
         </section>
         ${standardNav(currentPath)}
       `
