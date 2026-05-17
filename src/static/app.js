@@ -200,7 +200,7 @@ function fullscreenImgInit() {
       const imgNode = document.createElement('img');
       divNode.appendChild(imgNode);
       imgNode.src = img.src;
-      imgNode.alt = img.alt || '';
+      imgNode.alt = img.alt || 'Fullscreen image';
       imgNode.addEventListener('click', () => document.querySelectorAll('.fullscreen-img').forEach(nodeToRemove => {
         nodeToRemove.remove();
       }));
