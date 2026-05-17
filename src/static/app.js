@@ -81,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
     var tag = event.target;
 
     // It's a left click on an <a href=...>.
-    if (tag.tagName == 'A' && tag.href && event.button == 0) {
+    if (tag.tagName === 'A' && tag.href && event.button === 0) {
       // It's a same-origin navigation: a link within the site.
-      if (tag.origin == document.location.origin) {
+      if (tag.origin === document.location.origin) {
         var newPath = tag.pathname;
 
         // Only do this for relative urls

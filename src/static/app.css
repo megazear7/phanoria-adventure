@@ -618,8 +618,19 @@ dnd-search-box {
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
-    transition: none !important;
     scroll-behavior: auto !important;
+  }
+
+  .reveal-on-scroll,
+  .search-entry,
+  .card,
+  .character-from-list,
+  .sound-icon svg,
+  nav a,
+  a,
+  .song-content,
+  .page-hero img {
+    transition: none !important;
   }
 
   .reveal-on-scroll {
