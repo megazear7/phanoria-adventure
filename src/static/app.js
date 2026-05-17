@@ -1,5 +1,10 @@
 import './search-box.js';
 
+const REVEAL_THRESHOLD = 0.16;
+const REVEAL_ROOT_MARGIN = '0px 0px -50px 0px';
+const MAX_PARALLAX_SHIFT = 18;
+const PARALLAX_FACTOR = -0.03;
+
 if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
   navigator.serviceWorker.register('/sw.js')
   .then(function(reg) {
@@ -147,8 +152,8 @@ function initScrollReveal() {
       }
     });
   }, {
-    threshold: 0.16,
-    rootMargin: '0px 0px -50px 0px',
+    threshold: REVEAL_THRESHOLD,
+    rootMargin: REVEAL_ROOT_MARGIN,
   });
 
   revealTargets.forEach(node => window.__entryRevealObserver.observe(node));
@@ -165,7 +170,7 @@ function initParallaxHero() {
     heroImages.forEach(image => {
       const rect = image.getBoundingClientRect();
       const centeredOffset = ((rect.top + rect.height / 2) - (viewportHeight / 2));
-      const translate = Math.max(-18, Math.min(18, centeredOffset * -0.03));
+      const translate = Math.max(-MAX_PARALLAX_SHIFT, Math.min(MAX_PARALLAX_SHIFT, centeredOffset * PARALLAX_FACTOR));
       image.style.setProperty('--hero-shift', `${translate.toFixed(2)}px`);
     });
     ticking = false;
