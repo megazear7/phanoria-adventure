@@ -14,7 +14,7 @@ SPACE_ID=
 ```
 
 ```
-nvm use 16
+nvm use 24.16.0
 npm install
 ```
 

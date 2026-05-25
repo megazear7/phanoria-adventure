@@ -1,5 +1,6 @@
 const contentful = require('contentful');
-import { html, unsafeHTML } from 'orison';
+import { html } from 'orison';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { INLINES, BLOCKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 require('dotenv').config();
