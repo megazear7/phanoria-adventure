@@ -1,24 +1,22 @@
 {
-  "name": "orison-example",
+  "name": "phanoria-adventure",
   "version": "1.0.0",
-  "description": "An example Orison project setup for GitHub pages.",
+  "description": "The adventures of Phanoria",
   "main": "orison.js",
-  "dependencies": {
-    "orison": "^1.0.0"
+  "engines": {
+    "node": ">=24.16.0"
   },
   "devDependencies": {
     "@contentful/rich-text-html-renderer": "^14.1.1",
     "@contentful/rich-text-types": "^14.1.1",
     "contentful": "^7.14.5",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "orison": "^2.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf docs && orison build",
-    "serve": "orison serve",
-    "prod": "NODE_ENV=production orison serve",
-    "static": "orison static"
+    "start": "orison serve",
+    "build": "orison build ./ --buildDir ./dist"
   },
-  "author": "",
+  "author": "Alex Lockhart",
   "license": "ISC"
 }

@@ -12,7 +12,7 @@ function searchParams(slug) {
     'content_type': 'event',
     'fields.hide[ne]': true,
     'order': '-fields.year,-fields.month,-fields.day,-fields.ordering',
-    'limit': 50,
+    'limit': 10,
   };
 
   return params;

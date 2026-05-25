@@ -11,7 +11,7 @@ const basicRequest = {
 export async function makeEventPages() {
   const events = await client.getEntries(basicRequest);
   const total = events.total;
-  const limit = 50;
+  const limit = 10;
   const numPages = Math.ceil(total / limit);
   const pages = [];
   for (let i = 0; i < numPages; i++) {
