@@ -5,3 +5,4 @@
 
 [functions]
   directory = "src/server"
+  included_files = ["src/server/content/**"]

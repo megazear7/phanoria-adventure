@@ -1,9 +1,8 @@
 import { readFile } from 'node:fs/promises';
-import { getStore } from '@netlify/blobs';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 
 const artifactPath =
-  process.env.CONTENT_ARTIFACT_PATH || '.netlify/content/phanoria-content.txt';
+  process.env.CONTENT_ARTIFACT_PATH || new URL('./content/phanoria-content.txt', import.meta.url);
 const identityDomain = requiredEnv('AUTH0_DOMAIN');
 const identityAudience =
   process.env.AUTH0_AUDIENCE || 'https://identity.megazear7.com';
@@ -59,16 +58,6 @@ async function authenticate(event) {
 }
 
 async function loadContent() {
-  if (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_AUTH_TOKEN) {
-    const store = getStore({
-      name: process.env.CONTENT_BLOB_STORE || 'phanoria-content',
-      siteID: process.env.NETLIFY_SITE_ID,
-      token: process.env.NETLIFY_AUTH_TOKEN,
-    });
-    const content = await store.get('phanoria-content.txt', { type: 'text' });
-    if (content) return content;
-  }
-
   return readFile(artifactPath, 'utf8');
 }
 
