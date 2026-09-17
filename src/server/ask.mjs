@@ -1,8 +1,10 @@
 import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 
 const artifactPath =
-  process.env.CONTENT_ARTIFACT_PATH || new URL('./content/phanoria-content.txt', import.meta.url);
+  process.env.CONTENT_ARTIFACT_PATH || join(moduleDirectory(), 'content/phanoria-content.txt');
 const identityDomain = requiredEnv('AUTH0_DOMAIN');
 const identityAudience =
   process.env.AUTH0_AUDIENCE || 'https://identity.megazear7.com';
@@ -16,6 +18,11 @@ function requiredEnv(name) {
     throw new Error(`${name} is not configured`);
   }
   return value;
+}
+
+function moduleDirectory() {
+  if (typeof __dirname === 'string') return __dirname;
+  return dirname(fileURLToPath(import.meta.url));
 }
 
 export async function handler(event) {
