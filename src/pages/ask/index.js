@@ -10,6 +10,10 @@ export default async () => {
         <h1>Ask Scar</h1>
         <p class="ask-intro">Scar knows has recorded it all. Ask him yes/no questions about the adventures of Phanoria and get a clear answer from his records.</p>
       </div>
+      <label class="ask-archive-toggle">
+        <input type="checkbox" data-ask-show-archived />
+        <span>Show archived questions</span>
+      </label>
       <div class="ask-history" data-ask-history aria-live="polite">
         <p class="ask-empty" data-ask-empty>Your questions will appear here.</p>
       </div>

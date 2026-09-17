@@ -2,6 +2,8 @@ import './search-box.js';
 
 const IDENTITY_AUDIENCE = 'https://identity.megazear7.com';
 const ASK_HISTORY_KEY = 'phanoria:ask-history';
+const ASK_SHOW_ARCHIVED_KEY = 'phanoria:ask-show-archived';
+const ASK_YES_THRESHOLD = 0.65;
 let authClientPromise;
 
 if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
@@ -51,6 +53,7 @@ function replacePage(fragmentHtml, path) {
   });
   fullscreenImgInit();
   initializeAuth();
+  initializeMoreNav();
   initializeAsk();
 }
 
@@ -81,6 +84,19 @@ function initializeAuth() {
   }).catch(error => {
     console.error('Unable to initialize Megazear identity login.', error);
     button.textContent = 'Log in unavailable';
+  });
+}
+
+function initializeMoreNav() {
+  const toggle = document.querySelector('[data-more-toggle]');
+  const menu = document.querySelector('[data-more-menu]');
+  if (!toggle || !menu || toggle.dataset.initialized === 'true') return;
+  toggle.dataset.initialized = 'true';
+
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    menu.classList.toggle('open', !isOpen);
   });
 }
 
@@ -116,8 +132,32 @@ async function initializeAsk() {
 
   const status = document.querySelector('[data-ask-status]');
   const history = document.querySelector('[data-ask-history]');
+  const showArchived = document.querySelector('[data-ask-show-archived]');
   const button = form.querySelector('button[type="submit"]');
-  renderAskHistory(history, readAskHistory());
+  showArchived.checked = localStorage.getItem(ASK_SHOW_ARCHIVED_KEY) === 'true';
+  renderAskHistory(history, readAskHistory(), showArchived.checked);
+
+  showArchived.addEventListener('change', () => {
+    localStorage.setItem(ASK_SHOW_ARCHIVED_KEY, String(showArchived.checked));
+    renderAskHistory(history, readAskHistory(), showArchived.checked);
+  });
+
+  history.addEventListener('click', event => {
+    const action = event.target.closest('[data-ask-action]');
+    if (!action) return;
+
+    const records = readAskHistory();
+    const index = Number(action.dataset.recordIndex);
+    if (!Number.isInteger(index) || !records[index]) return;
+
+    if (action.dataset.askAction === 'delete') {
+      records.splice(index, 1);
+    } else {
+      records[index].archived = action.dataset.askAction === 'archive';
+    }
+    localStorage.setItem(ASK_HISTORY_KEY, JSON.stringify(records));
+    renderAskHistory(history, records, showArchived.checked);
+  });
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -148,12 +188,14 @@ async function initializeAsk() {
 
       const record = {
         question,
-        isYes: answer.confidence >= 0.8,
+        confidence: answer.confidence,
+        isYes: answer.confidence >= ASK_YES_THRESHOLD,
+        archived: false,
         createdAt: new Date().toISOString(),
       };
       const records = [record, ...readAskHistory()];
       localStorage.setItem(ASK_HISTORY_KEY, JSON.stringify(records));
-      renderAskHistory(history, records);
+      renderAskHistory(history, records, showArchived.checked);
       form.reset();
       status.textContent = '';
     } catch (error) {
@@ -174,19 +216,23 @@ function readAskHistory() {
   }
 }
 
-function renderAskHistory(history, records) {
+function renderAskHistory(history, records, showArchived) {
   history.replaceChildren();
-  if (!records.length) {
+  const visibleRecords = records
+    .map((record, index) => ({ record, index }))
+    .filter(({ record }) => showArchived || !record.archived);
+  if (!visibleRecords.length) {
     const empty = document.createElement('p');
     empty.className = 'ask-empty';
-    empty.textContent = 'Your questions will appear here.';
+    empty.textContent = showArchived ? 'Your questions will appear here.' : 'No active questions. Archived questions are hidden.';
     history.append(empty);
     return;
   }
 
-  records.forEach(record => {
+  visibleRecords.forEach(({ record, index }) => {
     const card = document.createElement('article');
-    card.className = 'ask-card';
+    card.className = `ask-card${record.archived ? ' archived' : ''}`;
+    card.tabIndex = 0;
 
     const content = document.createElement('div');
     const question = document.createElement('p');
@@ -198,9 +244,33 @@ function renderAskHistory(history, records) {
     content.append(question, date);
 
     const answer = document.createElement('span');
-    answer.className = `ask-card-answer ${record.isYes ? 'yes' : 'no'}`;
-    answer.textContent = record.isYes ? 'Yes' : 'No';
-    card.append(content, answer);
+    const isYes = typeof record.confidence === 'number'
+      ? record.confidence >= ASK_YES_THRESHOLD
+      : record.isYes;
+    answer.className = `ask-card-answer ${isYes ? 'yes' : 'no'}`;
+    answer.textContent = isYes ? 'Yes' : 'No';
+    const controls = document.createElement('div');
+    controls.className = 'ask-card-controls';
+    const actions = document.createElement('div');
+    actions.className = 'ask-card-actions';
+    const archive = document.createElement('button');
+    archive.type = 'button';
+    archive.className = 'ask-card-action muted';
+    archive.dataset.askAction = record.archived ? 'restore' : 'archive';
+    archive.dataset.recordIndex = String(index);
+    archive.textContent = record.archived ? 'Restore' : 'Archive';
+    actions.append(archive);
+    if (record.archived) {
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'ask-card-action muted danger';
+      remove.dataset.askAction = 'delete';
+      remove.dataset.recordIndex = String(index);
+      remove.textContent = 'Delete';
+      actions.append(remove);
+    }
+    controls.append(answer, actions);
+    card.append(content, controls);
     history.append(card);
   });
 }
@@ -213,6 +283,7 @@ window.addEventListener('popstate', event => {
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeAuth();
+  initializeMoreNav();
   initializeAsk();
   fullscreenImgInit();
   document.body.querySelectorAll('.open-song').forEach(button => {

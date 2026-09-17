@@ -10,5 +10,5 @@ const links = [
 ];
 
 export default function standardNav(currentPath) {
-  return nav(links, currentPath, false);
+  return nav(links.slice(0, 2), links.slice(2), currentPath, false);
 }

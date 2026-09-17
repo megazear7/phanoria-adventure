@@ -153,6 +153,19 @@ nav > div {
   overflow-x: scroll;
 }
 
+.more-nav,
+.more-nav-menu {
+  display: contents;
+}
+
+.more-nav-toggle {
+  display: none;
+}
+
+#ask-question {
+  align-self: center;
+}
+
 nav a {
   flex-grow: 1;
   flex-basis: 0;
@@ -560,17 +573,20 @@ a:hover .richtext-img {
   height: calc(100vh - 5rem);
   min-height: 26rem;
   margin-bottom: -5rem;
-  padding: 2rem 1rem 1rem;
+  padding: 2rem 1rem 0;
 }
 
 .ask-heading,
 .ask-history,
 .ask-composer,
 .ask-status {
-  max-width: var(--content-width);
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+  color: var(--grey);
+  font-size: 0.8rem;
+  flex: 0 0 auto;
+  min-height: 1rem;
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .ask-heading {
@@ -593,6 +609,72 @@ a:hover .richtext-img {
 .ask-intro {
   color: var(--grey);
   margin: 0.75rem auto 2rem;
+}
+
+.ask-archive-toggle {
+  align-items: center;
+  color: var(--grey);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.75rem;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.ask-archive-toggle input {
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+}
+
+.ask-archive-toggle span {
+  align-items: center;
+  display: flex;
+  gap: 0.45rem;
+  position: relative;
+}
+
+.ask-archive-toggle span::before {
+  background: var(--dark-grey);
+  border: 1px solid var(--grey);
+  border-radius: 999px;
+  content: '';
+  display: block;
+  height: 1.1rem;
+  position: relative;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  width: 2rem;
+}
+
+.ask-archive-toggle span::after {
+  background: var(--grey);
+  border-radius: 50%;
+  content: '';
+  height: 0.8rem;
+  left: 0.15rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease, background 0.2s ease;
+  width: 0.8rem;
+}
+
+.ask-archive-toggle input:checked + span::before {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ask-archive-toggle input:checked + span::after {
+  background: var(--dark-grey);
+  transform: translate(0.9rem, -50%);
+}
+
+.ask-archive-toggle input:focus-visible + span::before {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 .ask-history {
@@ -656,6 +738,51 @@ a:hover .richtext-img {
 .ask-card-answer.no {
   background: rgba(222, 68, 41, 0.18);
   color: #f28b77;
+}
+
+.ask-card-controls {
+  align-items: flex-end;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ask-card.archived {
+  border-left-color: var(--grey);
+  opacity: 0.68;
+}
+
+.ask-card-actions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.ask-card:hover .ask-card-actions,
+.ask-card:focus .ask-card-actions,
+.ask-card:focus-within .ask-card-actions {
+  opacity: 1;
+}
+
+.ask-card-action {
+  background: transparent;
+  border: 1px solid var(--grey);
+  border-radius: 999px;
+  color: var(--grey);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.35rem;
+}
+
+.ask-card-action:hover,
+.ask-card-action.danger:hover {
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .ask-composer {
@@ -751,8 +878,62 @@ a:hover .richtext-img {
     padding-right: 0.75rem;
   }
 
+  .more-nav {
+    display: block;
+    flex: 1 0 0;
+    position: relative;
+  }
+
+  .more-nav-toggle {
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid var(--dark-grey);
+    color: var(--medium-grey);
+    cursor: pointer;
+    display: block;
+    font: inherit;
+    padding: 0.5rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .more-nav-toggle[aria-expanded="true"] {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .more-nav-menu {
+    background: var(--dark-grey);
+    bottom: 100%;
+    box-shadow: var(--box-shadow);
+    display: none;
+    left: 0;
+    min-width: 10rem;
+    position: absolute;
+  }
+
+  .more-nav-menu.open {
+    display: block;
+  }
+
+  .more-nav-menu a,
+  .more-nav-menu .auth-action {
+    border-bottom: 1px solid var(--grey);
+    display: block;
+    text-align: left;
+    width: 100%;
+  }
+
   .ask-card {
     gap: 0.5rem;
     padding: 0.85rem;
+  }
+
+  .ask-card {
+    flex-wrap: wrap;
+  }
+
+  .ask-card-actions {
+    justify-content: flex-end;
   }
 }

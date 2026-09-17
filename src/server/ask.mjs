@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 
+const ASK_YES_THRESHOLD = 0.65;
 const artifactPath =
   process.env.CONTENT_ARTIFACT_PATH || join(moduleDirectory(), 'content/phanoria-content.txt');
 const identityDomain = requiredEnv('AUTH0_DOMAIN');
@@ -77,7 +78,7 @@ async function askJev(state, question) {
   for (const stateChunk of splitState(state)) {
     const confidence = await askJevChunk(stateChunk, question);
     highestConfidence = Math.max(highestConfidence, confidence);
-    if (confidence >= 0.8) return confidence;
+    if (confidence >= ASK_YES_THRESHOLD) return confidence;
   }
   return highestConfidence;
 }
