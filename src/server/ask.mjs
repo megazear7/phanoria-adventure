@@ -4,12 +4,20 @@ import { createRemoteJWKSet, jwtVerify } from 'jose';
 
 const artifactPath =
   process.env.CONTENT_ARTIFACT_PATH || '.netlify/content/phanoria-content.txt';
-const identityDomain = process.env.AUTH0_DOMAIN || 'login.megazear7.com';
+const identityDomain = requiredEnv('AUTH0_DOMAIN');
 const identityAudience =
   process.env.AUTH0_AUDIENCE || 'https://identity.megazear7.com';
 const jwks = createRemoteJWKSet(
   new URL(`https://${identityDomain}/.well-known/jwks.json`),
 );
+
+function requiredEnv(name) {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`${name} is not configured`);
+  }
+  return value;
+}
 
 export async function handler(event) {
   if (event.httpMethod !== 'POST') {
@@ -69,10 +77,13 @@ async function askJev(state, question) {
     throw new Error('TYPESAFE_API_KEY is not configured');
   }
 
-  const confidences = await Promise.all(
-    splitState(state).map(stateChunk => askJevChunk(stateChunk, question)),
-  );
-  return Math.max(...confidences);
+  let highestConfidence = 0;
+  for (const stateChunk of splitState(state)) {
+    const confidence = await askJevChunk(stateChunk, question);
+    highestConfidence = Math.max(highestConfidence, confidence);
+    if (confidence >= 0.8) return confidence;
+  }
+  return highestConfidence;
 }
 
 async function askJevChunk(state, question) {
