@@ -22,8 +22,6 @@
   "author": "Alex Lockhart",
   "license": "ISC",
   "dependencies": {
-    "@netlify/blobs": "^11.1.0",
-    "@netlify/functions": "^6.0.0",
     "jose": "^6.2.12"
   }
 }
