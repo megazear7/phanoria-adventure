@@ -3,6 +3,7 @@ import { html } from 'orison';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { INLINES, BLOCKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { recordContent, resetContentArtifact } from './server/content-artifact.js';
 require('dotenv').config();
 
 let contentfulConfig = {
@@ -13,6 +14,23 @@ let contentfulConfig = {
 if (process.env.CONTENTFUL_ENV === 'preview') contentfulConfig.host = 'preview.contentful.com';
 
 export const client = contentful.createClient(contentfulConfig);
+
+resetContentArtifact();
+
+const getEntry = client.getEntry.bind(client);
+const getEntries = client.getEntries.bind(client);
+
+client.getEntry = async (...args) => {
+  const result = await getEntry(...args);
+  recordContent('getEntry', result);
+  return result;
+};
+
+client.getEntries = async (...args) => {
+  const result = await getEntries(...args);
+  recordContent('getEntries', result);
+  return result;
+};
 
 export function renderRichText(document) {
   const htmlString = documentToHtmlString(document, {

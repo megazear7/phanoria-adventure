@@ -1,5 +1,9 @@
 import './search-box.js';
 
+const IDENTITY_AUDIENCE = 'https://identity.megazear7.com';
+const ASK_HISTORY_KEY = 'phanoria:ask-history';
+let authClientPromise;
+
 if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
   navigator.serviceWorker.register('/sw.js')
   .then(function(reg) {
@@ -46,6 +50,159 @@ function replacePage(fragmentHtml, path) {
     hljs.highlightBlock(block);
   });
   fullscreenImgInit();
+  initializeAuth();
+  initializeAsk();
+}
+
+function initializeAuth() {
+  const button = document.querySelector('[data-auth-action]');
+  if (!button || button.dataset.initialized === 'true') return;
+  button.dataset.initialized = 'true';
+
+  button.addEventListener('click', async () => {
+    const client = await getAuthClient();
+    if (!client) return;
+
+    if (await client.isAuthenticated()) {
+      client.logout({ logoutParams: { returnTo: window.location.origin } });
+    } else {
+      await client.loginWithRedirect();
+    }
+  });
+
+  getAuthClient().then(async client => {
+    if (!client) {
+      button.textContent = 'Log in unavailable';
+      button.title = 'Auth0 settings are not configured for this deployment.';
+      return;
+    }
+
+    button.textContent = (await client.isAuthenticated()) ? 'Log out' : 'Log in';
+  }).catch(error => {
+    console.error('Unable to initialize Megazear identity login.', error);
+    button.textContent = 'Log in unavailable';
+  });
+}
+
+async function getAuthClient() {
+  if (authClientPromise) return authClientPromise;
+
+  const config = window.PHANORIA_AUTH_CONFIG;
+  const createAuth0Client = window.auth0?.createAuth0Client;
+  if (!config?.domain || !config?.clientId || !createAuth0Client) return null;
+
+  authClientPromise = createAuth0Client({
+    domain: config.domain,
+    clientId: config.clientId,
+    authorizationParams: {
+      audience: IDENTITY_AUDIENCE,
+      redirect_uri: window.location.origin,
+    },
+  }).then(async client => {
+    if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+      await client.handleRedirectCallback();
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    return client;
+  });
+
+  return authClientPromise;
+}
+
+async function initializeAsk() {
+  const form = document.querySelector('[data-ask-form]');
+  if (!form || form.dataset.initialized === 'true') return;
+  form.dataset.initialized = 'true';
+
+  const status = document.querySelector('[data-ask-status]');
+  const history = document.querySelector('[data-ask-history]');
+  const button = form.querySelector('button[type="submit"]');
+  renderAskHistory(history, readAskHistory());
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    const question = form.elements.question.value.trim();
+    if (!question) return;
+
+    status.textContent = 'Thinking...';
+    button.disabled = true;
+
+    try {
+      const client = await getAuthClient();
+      if (!client || !(await client.isAuthenticated())) {
+        status.textContent = 'Please log in first.';
+        return;
+      }
+
+      const token = await client.getTokenSilently();
+      const response = await fetch('/.netlify/functions/ask', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ question }),
+      });
+      const answer = await response.json();
+      if (!response.ok) throw new Error(answer.message || 'Unable to answer the question.');
+
+      const record = {
+        question,
+        isYes: answer.confidence >= 0.8,
+        createdAt: new Date().toISOString(),
+      };
+      const records = [record, ...readAskHistory()];
+      localStorage.setItem(ASK_HISTORY_KEY, JSON.stringify(records));
+      renderAskHistory(history, records);
+      form.reset();
+      status.textContent = '';
+    } catch (error) {
+      console.error('Unable to ask Phanoria.', error);
+      status.textContent = error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
+}
+
+function readAskHistory() {
+  try {
+    const records = JSON.parse(localStorage.getItem(ASK_HISTORY_KEY) || '[]');
+    return Array.isArray(records) ? records : [];
+  } catch {
+    return [];
+  }
+}
+
+function renderAskHistory(history, records) {
+  history.replaceChildren();
+  if (!records.length) {
+    const empty = document.createElement('p');
+    empty.className = 'ask-empty';
+    empty.textContent = 'Your questions will appear here.';
+    history.append(empty);
+    return;
+  }
+
+  records.forEach(record => {
+    const card = document.createElement('article');
+    card.className = 'ask-card';
+
+    const content = document.createElement('div');
+    const question = document.createElement('p');
+    question.className = 'ask-card-question';
+    question.textContent = record.question;
+    const date = document.createElement('p');
+    date.className = 'ask-card-meta';
+    date.textContent = new Date(record.createdAt).toLocaleString();
+    content.append(question, date);
+
+    const answer = document.createElement('span');
+    answer.className = `ask-card-answer ${record.isYes ? 'yes' : 'no'}`;
+    answer.textContent = record.isYes ? 'Yes' : 'No';
+    card.append(content, answer);
+    history.append(card);
+  });
 }
 
 window.addEventListener('popstate', event => {
@@ -55,6 +212,8 @@ window.addEventListener('popstate', event => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  initializeAuth();
+  initializeAsk();
   fullscreenImgInit();
   document.body.querySelectorAll('.open-song').forEach(button => {
     button.addEventListener('click', () => {

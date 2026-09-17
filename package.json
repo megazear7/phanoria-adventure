@@ -11,12 +11,19 @@
     "@contentful/rich-text-types": "^14.1.1",
     "contentful": "^7.14.5",
     "dotenv": "^8.2.0",
+    "netlify-cli": "^23.0.0",
     "orison": "^2.5.0"
   },
   "scripts": {
     "start": "orison serve",
-    "build": "orison build ./ --buildDir ./dist"
+    "dev": "netlify dev",
+    "build": "node scripts/build.mjs"
   },
   "author": "Alex Lockhart",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.0",
+    "@netlify/functions": "^6.0.0",
+    "jose": "^6.2.12"
+  }
 }

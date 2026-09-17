@@ -6,6 +6,7 @@ export default (links, currentPath, addExtension) => html`
       ${links.map(link => html`
         <a href="${link.path}${addExtension ? '.html' : ''}" class="${currentPath === link.path ? 'active' : ''}">${link.title}</a>
       `)}
+      <button type="button" class="auth-action" data-auth-action>Log in</button>
     </div>
   </nav>
 `;

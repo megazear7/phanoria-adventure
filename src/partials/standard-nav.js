@@ -6,6 +6,7 @@ const links = [
 { path: `/story`, title: 'Story' },
 { path: `/npcs`, title: 'NPCs' },
 { path: `/locations`, title: 'Locations' },
+{ path: `/ask`, title: 'Ask' },
 ];
 
 export default function standardNav(currentPath) {

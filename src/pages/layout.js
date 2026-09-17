@@ -1,6 +1,13 @@
 import { html } from 'orison';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import header from '../partials/header.js';
 import footer from '../partials/footer.js';
+import 'dotenv/config';
+
+const authConfig = JSON.stringify({
+  domain: process.env.AUTH0_DOMAIN || process.env.VITE_AUTH0_DOMAIN || '',
+  clientId: process.env.AUTH0_CLIENT_ID || process.env.VITE_AUTH0_CLIENT_ID || '',
+}).replace(/</g, '\\u003c');
 
 export default context => html`
 <!DOCTYPE html>
@@ -32,6 +39,8 @@ export default context => html`
     <meta name="msapplication-TileImage" content="/icons/icon-512x512.png">
     <meta name="msapplication-TileColor" content="${context.root.data.primaryColor}">
     <meta name="msapplication-tap-highlight" content="no">
+    ${unsafeHTML(`<script>window.PHANORIA_AUTH_CONFIG = ${authConfig};</script>`)}
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
 
     <!-- Default twitter cards -->
     <meta name="twitter:card" content="summary">
